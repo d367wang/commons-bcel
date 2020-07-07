@@ -36,6 +36,8 @@ import java.util.zip.GZIPOutputStream;
 
 import org.apache.bcel.Const;
 import org.apache.bcel.util.ByteSequence;
+import org.checkerframework.common.value.qual.IntRange;
+import cast.SignednessConvert;
 
 /**
  * Utility functions that do not really belong to any class in particular.
@@ -1348,7 +1350,7 @@ public abstract class Utility {
             int count = 0;
             int b;
             while ((b = gis.read()) >= 0) {
-                tmp[count++] = (byte) b;
+                tmp[count++] = SignednessConvert.toSignedByte(b);
             }
             bytes = new byte[count];
             System.arraycopy(tmp, 0, bytes, 0, count);
@@ -1358,8 +1360,8 @@ public abstract class Utility {
 
     // A-Z, g-z, _, $
     private static final int FREE_CHARS = 48;
-    private static int[] CHAR_MAP = new int[FREE_CHARS];
-    private static int[] MAP_CHAR = new int[256]; // Reverse map
+    private static @IntRange(from=0, to=65535) int[] CHAR_MAP = new int[FREE_CHARS];
+    private static @IntRange(from=0, to=65535) int[] MAP_CHAR = new int[256]; // Reverse map
     private static final char ESCAPE_CHAR = '$';
     static {
         int j = 0;
@@ -1392,7 +1394,7 @@ public abstract class Utility {
 
 
         @Override
-        public int read() throws IOException {
+        public @IntRange(from=-1, to=65535) int read() throws IOException {
             final int b = in.read();
             if (b != ESCAPE_CHAR) {
                 return b;
@@ -1437,7 +1439,7 @@ public abstract class Utility {
 
 
         @Override
-        public void write( final int b ) throws IOException {
+        public void write( final @IntRange(from=0, to=65535) int b ) throws IOException {
             if (isJavaIdentifierPart((char) b) && (b != ESCAPE_CHAR)) {
                 out.write(b);
             } else {

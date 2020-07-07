@@ -23,6 +23,8 @@ import java.io.IOException;
 import org.apache.bcel.Const;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
+import org.checkerframework.common.value.qual.IntRange;
+import cast.qual.EnsuresIntRangeIf;
 
 /**
  * Abstract super class for all Java byte codes.
@@ -510,7 +512,7 @@ public abstract class Instruction implements Cloneable {
     /**
      * @return length (in bytes) of instruction
      */
-    public int getLength() {
+    public @IntRange(from=-32768, to=32767) int getLength() {
         return length;
     }
 
@@ -593,6 +595,7 @@ public abstract class Instruction implements Cloneable {
      * @return true if the value is in range
      * @since 6.0
      */
+	@EnsuresIntRangeIf(expression="#1", result=true, from=-128, to=127)
     public static boolean isValidByte(final int value) {
         return value >= Byte.MIN_VALUE && value <= Byte.MAX_VALUE;
     }
@@ -603,6 +606,7 @@ public abstract class Instruction implements Cloneable {
      * @return true if the value is in range
      * @since 6.0
      */
+	@EnsuresIntRangeIf(expression="#1", result=true, from=-32768, to=32767)
     public static boolean isValidShort(final int value) {
         return value >= Short.MIN_VALUE && value <= Short.MAX_VALUE;
     }

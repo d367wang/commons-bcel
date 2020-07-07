@@ -20,6 +20,9 @@ package org.apache.bcel;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.checkerframework.common.value.qual.ArrayLen;
+import org.checkerframework.common.value.qual.IntVal;
+
 /**
  * Constants for the project, mostly defined in the JVM specification.
  *
@@ -2003,7 +2006,7 @@ public final class Const {
   /**
    * Names of opcodes.  Indexed by opcode.  OPCODE_NAMES[ALOAD] = "aload".
    */
-  private static final String[] OPCODE_NAMES = {
+  private static final String @ArrayLen(256) [] OPCODE_NAMES = {
     "nop", "aconst_null", "iconst_m1", "iconst_0", "iconst_1",
     "iconst_2", "iconst_3", "iconst_4", "iconst_5", "lconst_0",
     "lconst_1", "fconst_0", "fconst_1", "fconst_2", "dconst_0",
@@ -2055,7 +2058,7 @@ public final class Const {
   /**
    * @since 6.0
    */
-  public static final int OPCODE_NAMES_LENGTH = OPCODE_NAMES.length;
+  public static final @IntVal(256) int OPCODE_NAMES_LENGTH = OPCODE_NAMES.length;
 
 
   /**
