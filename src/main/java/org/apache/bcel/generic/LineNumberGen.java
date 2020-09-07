@@ -18,6 +18,7 @@
 package org.apache.bcel.generic;
 
 import org.apache.bcel.classfile.LineNumber;
+import org.checkerframework.common.value.qual.IntRange;
 
 /**
  * This class represents a line number within a method, i.e., give an instruction
@@ -30,7 +31,7 @@ import org.apache.bcel.classfile.LineNumber;
 public class LineNumberGen implements InstructionTargeter, Cloneable {
 
     private InstructionHandle ih;
-    private int src_line;
+    private @IntRange(from=0, to=65535) int src_line;
 
 
     /**
@@ -38,7 +39,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable {
      *
      * @param ih instruction handle to reference
      */
-    public LineNumberGen(final InstructionHandle ih, final int src_line) {
+    public LineNumberGen(final InstructionHandle ih, final @IntRange(from=0, to=65535) int src_line) {
         setInstruction(ih);
         setSourceLine(src_line);
     }
@@ -101,12 +102,12 @@ public class LineNumberGen implements InstructionTargeter, Cloneable {
     }
 
 
-    public void setSourceLine( final int src_line ) { // TODO could be package-protected?
+    public void setSourceLine( final @IntRange(from=0, to=65535) int src_line ) { // TODO could be package-protected?
         this.src_line = src_line;
     }
 
 
-    public int getSourceLine() {
+    public @IntRange(from=0, to=65535) int getSourceLine() {
         return src_line;
     }
 }

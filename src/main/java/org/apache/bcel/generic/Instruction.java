@@ -529,7 +529,7 @@ public abstract class Instruction implements Cloneable {
      * Needed in readInstruction and subclasses in this package
      * @since 6.0
      */
-    final void setLength( final int length ) {
+    final void setLength( final @IntRange(from=-32768, to=32767) int length ) {
         this.length = (short) length; // TODO check range?
     }
 

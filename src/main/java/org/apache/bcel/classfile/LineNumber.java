@@ -21,6 +21,8 @@ import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.checkerframework.common.value.qual.IntRange;
+
 /**
  * This class represents a (PC offset, line number) pair, i.e., a line number in
  * the source that corresponds to a relative address in the byte code. This
@@ -32,10 +34,10 @@ import java.io.IOException;
 public final class LineNumber implements Cloneable, Node {
 
     /** Program Counter (PC) corresponds to line */
-    private short start_pc;
+    private @IntRange(from=0, to=65535) short start_pc;
 
     /** number in source file */
-    private short line_number;
+    private @IntRange(from=0, to=65535) short line_number;
 
     /**
      * Initialize from another object.
@@ -62,7 +64,7 @@ public final class LineNumber implements Cloneable, Node {
      * @param start_pc Program Counter (PC) corresponds to
      * @param line_number line number in source file
      */
-    public LineNumber(final int start_pc, final int line_number) {
+    public LineNumber(final @IntRange(from=0, to=65535) int start_pc, final @IntRange(from=0, to=65535) int line_number) {
         this.start_pc = (short) start_pc;
         this.line_number = (short)line_number;
     }
@@ -96,7 +98,7 @@ public final class LineNumber implements Cloneable, Node {
     /**
      * @return Corresponding source line
      */
-    public final int getLineNumber() {
+    public final @IntRange(from=0, to=65535) int getLineNumber() {
         return 0xffff & line_number;
     }
 
@@ -104,7 +106,7 @@ public final class LineNumber implements Cloneable, Node {
     /**
      * @return PC in code
      */
-    public final int getStartPC() {
+    public final @IntRange(from=0, to=65535) int getStartPC() {
         return  0xffff & start_pc;
     }
 
@@ -112,7 +114,7 @@ public final class LineNumber implements Cloneable, Node {
     /**
      * @param line_number the source line number
      */
-    public final void setLineNumber( final int line_number ) {
+    public final void setLineNumber( final @IntRange(from=0, to=65535) int line_number ) {
         this.line_number = (short) line_number;
     }
 
@@ -120,7 +122,7 @@ public final class LineNumber implements Cloneable, Node {
     /**
      * @param start_pc the pc for this line number
      */
-    public final void setStartPC( final int start_pc ) {
+    public final void setStartPC( final @IntRange(from=0, to=65535) int start_pc ) {
         this.start_pc = (short) start_pc;
     }
 

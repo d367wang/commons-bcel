@@ -42,6 +42,8 @@ import org.apache.bcel.classfile.ParameterAnnotations;
 import org.apache.bcel.classfile.RuntimeVisibleParameterAnnotations;
 import org.apache.bcel.classfile.Utility;
 import org.apache.bcel.util.BCELComparator;
+import org.checkerframework.common.value.qual.IntRange;
+
 
 /**
  * Template class for building up a method. This is done by defining exception
@@ -397,7 +399,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      * @return new line number object
      * @see LineNumber
      */
-    public LineNumberGen addLineNumber( final InstructionHandle ih, final int src_line ) {
+    public LineNumberGen addLineNumber( final InstructionHandle ih, final @IntRange(from=0, to=65535) int src_line ) {
         final LineNumberGen l = new LineNumberGen(ih, src_line);
         line_number_vec.add(l);
         return l;
