@@ -1419,7 +1419,7 @@ public abstract class Utility {
 
 
         @Override
-        public int read( final char[] cbuf, final int off, final int len ) throws IOException {
+        public @IntRange(from=-1, to=2147483647) int read( final char[] cbuf, final int off, final int len ) throws IOException {
             for (int i = 0; i < len; i++) {
                 cbuf[off + i] = (char) read();
             }
