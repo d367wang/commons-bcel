@@ -63,8 +63,8 @@ public final class LineNumber implements Cloneable, Node {
      * @param line_number line number in source file
      */
     public LineNumber(final int start_pc, final int line_number) {
-        this.start_pc = (short) start_pc;
-        this.line_number = (short)line_number;
+        this.start_pc = (short) (start_pc & 0x7FFF);
+        this.line_number = (short) (line_number & 0x7FFF);
     }
 
 

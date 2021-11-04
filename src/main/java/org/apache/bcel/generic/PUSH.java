@@ -39,11 +39,11 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
     public PUSH(final ConstantPoolGen cp, final int value) {
         if ((value >= -1) && (value <= 5)) {
             instruction = InstructionConst.getInstruction(Const.ICONST_0 + value);
-        } else if (Instruction.isValidByte(value)) {
+        } /*else if (Instruction.isValidByte(value)) {
             instruction = new BIPUSH((byte) value);
         } else if (Instruction.isValidShort(value)) {
             instruction = new SIPUSH((short) value);
-        } else {
+        }*/ else {
             instruction = new LDC(cp.addInteger(value));
         }
     }

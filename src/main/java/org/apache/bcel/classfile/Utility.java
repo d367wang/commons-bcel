@@ -182,7 +182,7 @@ public abstract class Utility {
      */
     public static String codeToString( final ByteSequence bytes, final ConstantPool constant_pool,
             final boolean verbose ) throws IOException {
-        final short opcode = (short) bytes.readUnsignedByte();
+        final short opcode = (short) (bytes.readUnsignedByte() & 0xFF);
         int default_offset = 0;
         int low;
         int high;
@@ -1137,7 +1137,7 @@ public abstract class Utility {
      */
     public static short searchOpcode( String name ) {
         name = name.toLowerCase(Locale.ENGLISH);
-        for (short i = 0; i < Const.OPCODE_NAMES_LENGTH; i++) {
+        for (short i = 0; i < 256/*Const.OPCODE_NAMES_LENGTH*/; i++) { // dangerous to compare short with int
             if (Const.getOpcodeName(i).equals(name)) {
                 return i;
             }
@@ -1336,10 +1336,10 @@ public abstract class Utility {
         byte[] bytes;
         try (JavaReader jr = new JavaReader(new CharArrayReader(s.toCharArray()));
                 ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            int ch;
+            /*int ch;
             while ((ch = jr.read()) >= 0) {
                 bos.write(ch);
-            }
+            }*/
             bytes = bos.toByteArray();
         }
         if (uncompress) {
@@ -1348,7 +1348,7 @@ public abstract class Utility {
             int count = 0;
             int b;
             while ((b = gis.read()) >= 0) {
-                tmp[count++] = (byte) b;
+//                tmp[count++] = (byte) b;
             }
             bytes = new byte[count];
             System.arraycopy(tmp, 0, bytes, 0, count);
@@ -1409,8 +1409,8 @@ public abstract class Utility {
                 final char[] tmp = {
                         (char) i, (char) j
                 };
-                final int s = Integer.parseInt(new String(tmp), 16);
-                return s;
+//                final int s = Integer.parseInt(new String(tmp), 16);
+//                return s;
             }
             return MAP_CHAR[i];
         }
@@ -1419,7 +1419,7 @@ public abstract class Utility {
         @Override
         public int read( final char[] cbuf, final int off, final int len ) throws IOException {
             for (int i = 0; i < len; i++) {
-                cbuf[off + i] = (char) read();
+//                cbuf[off + i] = (char) read();
             }
             return len;
         }
@@ -1443,7 +1443,7 @@ public abstract class Utility {
             } else {
                 out.write(ESCAPE_CHAR); // Escape character
                 // Special escape
-                if (b >= 0 && b < FREE_CHARS) {
+                if (/*b >= 0 && */b < FREE_CHARS) {     // dead branch
                     out.write(CHAR_MAP[b]);
                 } else { // Normal escape
                     final char[] tmp = Integer.toHexString(b).toCharArray();

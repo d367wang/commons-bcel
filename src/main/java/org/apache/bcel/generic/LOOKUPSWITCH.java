@@ -41,7 +41,7 @@ public class LOOKUPSWITCH extends Select {
     public LOOKUPSWITCH(final int[] match, final InstructionHandle[] targets, final InstructionHandle defaultTarget) {
         super(org.apache.bcel.Const.LOOKUPSWITCH, match, targets, defaultTarget);
         /* alignment remainder assumed 0 here, until dump time. */
-        final short _length = (short) (9 + getMatch_length() * 8);
+        final short _length = (short) ((9 + getMatch_length() * 8) & 0x7FFF);
         super.setLength(_length);
         setFixed_length(_length);
     }
@@ -71,9 +71,9 @@ public class LOOKUPSWITCH extends Select {
         super.initFromFile(bytes, wide); // reads padding
         final int _match_length = bytes.readInt();
         setMatch_length(_match_length);
-        final short _fixed_length = (short) (9 + _match_length * 8);
+        final short _fixed_length = (short) ((9 + _match_length * 8) & 0x7FFF);
         setFixed_length(_fixed_length);
-        final short _length = (short) (_match_length + super.getPadding());
+        final short _length = (short) ((_match_length + super.getPadding()) & 0x7FFF);
         super.setLength(_length);
         super.setMatches(new int[_match_length]);
         super.setIndices(new int[_match_length]);

@@ -78,7 +78,7 @@ final class CodeHTML {
      * @return String representation of byte code
      */
     private String codeToHTML( final ByteSequence bytes, final int method_number ) throws IOException {
-        final short opcode = (short) bytes.readUnsignedByte();
+        final short opcode = (short) (bytes.readUnsignedByte() & 0xFF);
         String name;
         String signature;
         int default_offset = 0;
@@ -414,7 +414,7 @@ final class CodeHTML {
         }
         // Get target addresses from GOTO, JSR, TABLESWITCH, etc.
         for (; bytes.available() > 0;) {
-            opcode = bytes.readUnsignedByte();
+            opcode = (bytes.readUnsignedByte() & 0xFF);
             //System.out.println(getOpcodeName(opcode));
             switch (opcode) {
                 case Const.TABLESWITCH:

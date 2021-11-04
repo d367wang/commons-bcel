@@ -78,7 +78,7 @@ public class SimpleElementValue extends ElementValue
         }
         final ConstantInteger c = (ConstantInteger) super.getConstantPool().getConstant(getIndex(),
                 Const.CONSTANT_Integer);
-        return (byte) c.getBytes();
+        return (byte) (c.getBytes() & 0x7F);
     }
 
     public char getValueChar()
@@ -89,7 +89,7 @@ public class SimpleElementValue extends ElementValue
         }
         final ConstantInteger c = (ConstantInteger) super.getConstantPool().getConstant(getIndex(),
                 Const.CONSTANT_Integer);
-        return (char) c.getBytes();
+        return (char) (c.getBytes() & 0xFFFF);
     }
 
     public long getValueLong()
@@ -139,7 +139,7 @@ public class SimpleElementValue extends ElementValue
                     "Dont call getValueShort() on a non SHORT ElementValue");
         }
         final ConstantInteger s = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
-        return (short) s.getBytes();
+        return (short) (s.getBytes() & 0x7FFF);
     }
 
     @Override
@@ -183,7 +183,7 @@ public class SimpleElementValue extends ElementValue
         case PRIMITIVE_CHAR:
             final ConstantInteger ch = (ConstantInteger) cpool.getConstant(
                     getIndex(), Const.CONSTANT_Integer);
-            return String.valueOf((char)ch.getBytes());
+            return String.valueOf((char)(ch.getBytes() & 0xFFFF));
         case PRIMITIVE_BOOLEAN:
             final ConstantInteger bo = (ConstantInteger) cpool.getConstant(
                     getIndex(), Const.CONSTANT_Integer);

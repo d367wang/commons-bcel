@@ -158,7 +158,7 @@ public abstract class Instruction implements Cloneable {
     // @since 6.0 no longer final
     public static Instruction readInstruction( final ByteSequence bytes ) throws IOException {
         boolean wide = false;
-        short opcode = (short) bytes.readUnsignedByte();
+        short opcode = (short) (bytes.readUnsignedByte() & 0xFF);
         Instruction obj = null;
         if (opcode == Const.WIDE) { // Read next opcode after wide byte
             wide = true;

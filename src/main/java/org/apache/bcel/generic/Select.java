@@ -126,7 +126,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
         /* Alignment on 4-byte-boundary, + 1, because of tag byte.
          */
         padding = (4 - ((getPosition() + 1) % 4)) % 4;
-        super.setLength((short) (fixed_length + padding)); // Update length
+        super.setLength((short) ((fixed_length + padding) & 0x7FFF)); // Update length
         return super.getLength() - old_length;
     }
 

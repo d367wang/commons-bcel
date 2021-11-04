@@ -170,23 +170,23 @@ public final class Pass3bVerifier extends PassVerifier{
 
                 // Sanity check
                 InstructionContext lastJSR = null;
-                int skip_jsr = 0;
-                for (int ss=oldchain.size()-1; ss >= 0; ss--) {
-                    if (skip_jsr < 0) {
-                        throw new AssertionViolatedException("More RET than JSR in execution chain?!");
-                    }
-//System.err.println("+"+oldchain.get(ss));
-                    if ((oldchain.get(ss)).getInstruction().getInstruction() instanceof JsrInstruction) {
-                        if (skip_jsr == 0) {
-                            lastJSR = oldchain.get(ss);
-                            break;
-                        }
-                        skip_jsr--;
-                    }
-                    if ((oldchain.get(ss)).getInstruction().getInstruction() instanceof RET) {
-                        skip_jsr++;
-                    }
-                }
+//                int skip_jsr = 0;     // bug in refinement
+//                for (int ss=oldchain.size()-1; ss >= 0; ss--) {
+//                    if (skip_jsr < 0) {
+//                        throw new AssertionViolatedException("More RET than JSR in execution chain?!");
+//                    }
+////System.err.println("+"+oldchain.get(ss));
+//                    if ((oldchain.get(ss)).getInstruction().getInstruction() instanceof JsrInstruction) {
+//                        if (skip_jsr == 0) {
+//                            lastJSR = oldchain.get(ss);
+//                            break;
+//                        }
+//                        skip_jsr--;
+//                    }
+//                    if ((oldchain.get(ss)).getInstruction().getInstruction() instanceof RET) {
+//                        skip_jsr++;
+//                    }
+//                }
                 if (lastJSR == null) {
                     throw new AssertionViolatedException("RET without a JSR before in ExecutionChain?! EC: '"+oldchain+"'.");
                 }

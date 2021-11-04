@@ -343,7 +343,7 @@ public abstract class Type {
     }
 
     static int encode(final int size, final int consumed) {
-        return consumed << 2 | size;
+        return /*consumed << 2 |*/ size;
     }
 
     static int getArgumentTypesSize( final String signature ) {

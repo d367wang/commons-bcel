@@ -237,7 +237,7 @@ public final class Const {
   /** One of the access flags for fields, methods, or classes.
    *  @see #ACC_PUBLIC
    */
-  public static final short ACC_MANDATED     = (short) 0x8000;
+  public static final short ACC_MANDATED     = (short) -0x8000;
 
   // Applies to classes compiled by new compilers only
   /** One of the access flags for fields, methods, or classes.

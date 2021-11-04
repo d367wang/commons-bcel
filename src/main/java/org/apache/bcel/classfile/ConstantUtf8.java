@@ -52,7 +52,8 @@ public final class ConstantUtf8 extends Constant {
     private static class CACHE_HOLDER {
 
         private static final int MAX_CACHE_ENTRIES = 20000;
-        private static final int INITIAL_CACHE_CAPACITY = (int)(MAX_CACHE_ENTRIES/0.75);
+//        private static final int INITIAL_CACHE_CAPACITY = (int)(MAX_CACHE_ENTRIES/0.75);
+        private static final int INITIAL_CACHE_CAPACITY = 26666;
 
         private static final HashMap<String, ConstantUtf8> CACHE =
                 new LinkedHashMap<String, ConstantUtf8>(INITIAL_CACHE_CAPACITY, 0.75f, true) {

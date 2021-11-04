@@ -47,7 +47,7 @@ public class TABLESWITCH extends Select {
     public TABLESWITCH(final int[] match, final InstructionHandle[] targets, final InstructionHandle defaultTarget) {
         super(org.apache.bcel.Const.TABLESWITCH, match, targets, defaultTarget);
         /* Alignment remainder assumed 0 here, until dump time */
-        final short _length = (short) (13 + getMatch_length() * 4);
+        final short _length = (short) ((13 + getMatch_length() * 4) & 0x7FFF);
         super.setLength(_length);
         setFixed_length(_length);
     }
@@ -81,9 +81,9 @@ public class TABLESWITCH extends Select {
         final int high = bytes.readInt();
         final int _match_length = high - low + 1;
         setMatch_length(_match_length);
-        final short _fixed_length = (short) (13 + _match_length * 4);
+        final short _fixed_length = (short) ((13 + _match_length * 4) & 0x7FFF);
         setFixed_length(_fixed_length);
-        super.setLength((short) (_fixed_length + super.getPadding()));
+        super.setLength((short) (_fixed_length /*+ super.getPadding()*/));
         super.setMatches(new int[_match_length]);
         super.setIndices(new int[_match_length]);
         super.setTargets(new InstructionHandle[_match_length]);
