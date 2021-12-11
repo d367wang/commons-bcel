@@ -1348,7 +1348,7 @@ public abstract class Utility {
             int count = 0;
             int b;
             while ((b = gis.read()) >= 0) {
-//                tmp[count++] = (byte) b;
+                tmp[count++] = (byte) b;
             }
             bytes = new byte[count];
             System.arraycopy(tmp, 0, bytes, 0, count);

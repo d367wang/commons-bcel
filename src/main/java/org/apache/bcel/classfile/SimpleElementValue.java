@@ -78,7 +78,7 @@ public class SimpleElementValue extends ElementValue
         }
         final ConstantInteger c = (ConstantInteger) super.getConstantPool().getConstant(getIndex(),
                 Const.CONSTANT_Integer);
-        return (byte) (c.getBytes() & 0x7F);
+        return (byte) (c.getBytes() & 0xFF);
     }
 
     public char getValueChar()

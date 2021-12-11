@@ -162,7 +162,7 @@ public final class Signature extends Attribute {
             final StringBuilder buf2 = new StringBuilder();
             int count = 1;
             while (Character.isJavaIdentifierPart(/*(char)*/ ch)) {
-//                buf2.append((char) ch);
+//                buf2.append((char) ch);   // false positive
                 count++;
                 ch = in.read();
             }
